@@ -1,0 +1,37 @@
+{
+  "required": true,
+  "package": "org.verselstudios.noisecustomizer.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "EntitySectionStorageMixin",
+    "LevelMixin",
+    "MixinAquiferNoisedBasedAquifer",
+    "MixinBlendedNoise",
+    "MixinBlockPos",
+    "MixinChunk",
+    "MixinDimensionType",
+    "MixinEntity",
+    "MixinLevelReader",
+    "MixinMinecraftServer",
+    "MixinNoiseBasedChunkGenerator",
+    "MixinNoiseChunk",
+    "MixinNormalNoise",
+    "MixinPerlinNoise",
+    "MixinPlayerEntity",
+    "MixinServerGamePacketListenerImpl",
+    "MixinWorldBorder",
+    "MixinWorldBorderCommand",
+    "MixinWorldBorderSettings",
+    "MixinWorldgenRandom",
+    "MixinWorldgenRegion"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": false
+  },
+  "client": [
+    "MixinDebugScreenOverlay"
+  ]
+}

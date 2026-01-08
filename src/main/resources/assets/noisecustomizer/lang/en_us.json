@@ -1,0 +1,13 @@
+{
+  "itemGroup.noisecustomizer": "Example Mod Tab",
+  "block.noisecustomizer.example_block": "Example Block",
+  "item.noisecustomizer.example_item": "Example Item",
+
+  "noisecustomizer.configuration.title": "Noise Customizer Configs",
+  "noisecustomizer.configuration.section.noisecustomizer.common.toml": "Noise Customizer Configs",
+  "noisecustomizer.configuration.section.noisecustomizer.common.toml.title": "Noise Customizer Configs",
+  "noisecustomizer.configuration.items": "Item List",
+  "noisecustomizer.configuration.logDirtBlock": "Log Dirt Block",
+  "noisecustomizer.configuration.magicNumberIntroduction": "Magic Number Text",
+  "noisecustomizer.configuration.magicNumber": "Magic Number"
+}
