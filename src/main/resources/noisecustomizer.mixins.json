@@ -7,10 +7,12 @@
     "LevelMixin",
     "MixinAquiferNoisedBasedAquifer",
     "MixinBlendedNoise",
-    "MixinBlockPos",
     "MixinChunk",
+    "MixinChunkGenerationTask",
+    "MixinChunkMap",
     "MixinDimensionType",
     "MixinEntity",
+    "MixinFriendlyByteBuf",
     "MixinLevelReader",
     "MixinMinecraftServer",
     "MixinNoiseBasedChunkGenerator",
@@ -18,7 +20,9 @@
     "MixinNormalNoise",
     "MixinPerlinNoise",
     "MixinPlayerEntity",
+    "MixinServerChunkCache",
     "MixinServerGamePacketListenerImpl",
+    "MixinServerLevel",
     "MixinWorldBorder",
     "MixinWorldBorderCommand",
     "MixinWorldBorderSettings",
@@ -32,6 +36,8 @@
     "requireAnnotations": false
   },
   "client": [
-    "MixinDebugScreenOverlay"
+    "MixinClientLevel",
+    "MixinDebugScreenOverlay",
+    "MixinLevelRenderer"
   ]
 }
