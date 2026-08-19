@@ -17,6 +17,7 @@
     "MixinMinecraftServer",
     "MixinNoiseBasedChunkGenerator",
     "MixinNoiseChunk",
+    "MixinNoiseDensityFunction",
     "MixinNormalNoise",
     "MixinPerlinNoise",
     "MixinPlayerEntity",
@@ -27,7 +28,8 @@
     "MixinWorldBorderCommand",
     "MixinWorldBorderSettings",
     "MixinWorldgenRandom",
-    "MixinWorldgenRegion"
+    "MixinWorldgenRegion",
+    "PerlinNoiseAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

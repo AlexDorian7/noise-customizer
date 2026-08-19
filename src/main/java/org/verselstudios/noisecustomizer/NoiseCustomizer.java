@@ -1,5 +1,6 @@
 package org.verselstudios.noisecustomizer;
 
+import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -30,6 +31,7 @@ import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import org.verselstudios.noisecustomizer.commands.NoiseReportCommand;
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(NoiseCustomizer.MODID)
@@ -48,10 +50,15 @@ public class NoiseCustomizer {
         // Register ourselves for server and other game events we are interested in.
         // Note that this is necessary if and only if we want *this* class (NoiseCustomizer) to respond directly to events.
         // Do not add this line if there are no @SubscribeEvent-annotated functions in this class, like onServerStarting() below.
-        //NeoForge.EVENT_BUS.register(this);
+        NeoForge.EVENT_BUS.register(this);
 
 
         // Register our mod's ModConfigSpec so that FML can create and load the config file for us
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+    }
+
+    @SubscribeEvent
+    public void registerCommands(RegisterCommandsEvent event) {
+        NoiseReportCommand.register(event.getDispatcher());
     }
 }
