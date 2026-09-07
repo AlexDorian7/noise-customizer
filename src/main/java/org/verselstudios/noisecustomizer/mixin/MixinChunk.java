@@ -12,8 +12,7 @@ public class MixinChunk {
     @ModifyVariable(method = "fillBiomesFromNoise", at = @At("STORE"))
     private ChunkPos applyOffset(ChunkPos chunkPos) {
         try {
-            int offset = Config.GEN_OFFSET.get();
-            return new ChunkPos(chunkPos.x + offset, chunkPos.z + offset);
+            return new ChunkPos(Config.getChunkX(chunkPos.x), Config.getChunkZ(chunkPos.z));
         } catch (Exception e) {
             return chunkPos;
         }

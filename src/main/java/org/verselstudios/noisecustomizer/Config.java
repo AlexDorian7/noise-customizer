@@ -1,10 +1,6 @@
 package org.verselstudios.noisecustomizer;
 
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.common.ModConfigSpec;
-
-import java.util.List;
 
 // An example config class. This is not required, but it's a good idea to have one to keep your config organized.
 // Demonstrates how to use Neo's config APIs
@@ -20,9 +16,31 @@ public class Config {
             .comment("Enable the 32bit version of the farlands")
             .define("enableFarlands", false);
 
+    public static final ModConfigSpec.BooleanValue OLD_CHUNK_WRAPPING = BUILDER
+            .comment("Enables old chunk wrapping")
+            .define("enableOldChunkWrapping", false);
+
+    public static final ModConfigSpec.BooleanValue GENERATE_FLUIDS = BUILDER
+            .comment("Enables fluid generation. This can be laggy in the farlands when a lot of lava and water touch.")
+            .define("generateFluids", true);
+
+    public static final ModConfigSpec.BooleanValue ENABLE_FRINGELANDS = BUILDER
+            .comment("Enable the fringelands by using float in smoothstep and lerp.")
+            .define("enableFringelands", false);
+
     public static final ModConfigSpec.IntValue GEN_OFFSET = BUILDER
             .comment("Amount in chunks to offset generation by")
             .defineInRange("genOffset", 0, Integer.MIN_VALUE, Integer.MAX_VALUE);
+
+    public static final ModConfigSpec.DoubleValue X_NOISE_OFFSET = BUILDER
+            .comment("Amount to offset X coord noise by")
+            .defineInRange("noiseXOffset", 0, -Double.MAX_VALUE, Double.MAX_VALUE);
+    public static final ModConfigSpec.DoubleValue Y_NOISE_OFFSET = BUILDER
+            .comment("Amount to offset Y coord noise by")
+            .defineInRange("noiseYOffset", 0, -Double.MAX_VALUE, Double.MAX_VALUE);
+    public static final ModConfigSpec.DoubleValue Z_NOISE_OFFSET = BUILDER
+            .comment("Amount to offset Z coord noise by")
+            .defineInRange("noiseZOffset", 0, -Double.MAX_VALUE, Double.MAX_VALUE);
 
     public static final ModConfigSpec.DoubleValue XZ_COORDINATE_SCALE = BUILDER
             .comment("The xz noise coordinate scale")
@@ -85,4 +103,20 @@ public class Config {
             .defineInRange("wrapPeriod", 3.3554432E7, Double.MIN_VALUE, Double.MAX_VALUE);
 
     static final ModConfigSpec SPEC = BUILDER.build();
+
+    public static int getChunkX(int x) {
+        int x1 = x + GEN_OFFSET.get();
+        if (OLD_CHUNK_WRAPPING.get()) {
+            x1 &= 0x0000FFFF;
+        }
+        return x1;
+    }
+
+    public static int getChunkZ(int z) {
+        int z1 = z + GEN_OFFSET.get();
+        if (OLD_CHUNK_WRAPPING.get()) {
+            z1 &= 0x0000FFFF;
+        }
+        return z1;
+    }
 }

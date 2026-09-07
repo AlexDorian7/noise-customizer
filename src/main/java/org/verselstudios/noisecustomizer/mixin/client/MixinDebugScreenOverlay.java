@@ -1,4 +1,4 @@
-package org.verselstudios.noisecustomizer.mixin;
+package org.verselstudios.noisecustomizer.mixin.client;
 
 import com.google.common.collect.Lists;
 import it.unimi.dsi.fastutil.longs.LongSet;
@@ -39,9 +39,6 @@ import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
 import java.util.Locale;

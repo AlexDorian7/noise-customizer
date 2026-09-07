@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:range_choice",
+  "input": {
+    "type": "minecraft:add",
+    "argument1": "versel:overworld/caves/cave_noise",
+    "argument2": -0.1
+  },
+  "min_inclusive": -10,
+  "max_exclusive": 0,
+  "when_in_range": {
+    "type": "minecraft:add",
+    "argument1": "versel:overworld/caves/cave_noise",
+    "argument2": -0.1
+  },
+  "when_out_of_range": 1
+}

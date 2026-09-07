@@ -1,0 +1,57 @@
+{
+  "type": "minecraft:min",
+  "argument1": {
+    "type": "minecraft:squeeze",
+    "argument": {
+      "type": "minecraft:mul",
+      "argument1": 0.64,
+      "argument2": {
+        "type": "minecraft:interpolated",
+        "argument": {
+          "type": "minecraft:blend_density",
+          "argument": {
+            "type": "minecraft:add",
+            "argument1": 0.1171875,
+            "argument2": {
+              "type": "minecraft:mul",
+              "argument1": {
+                "type": "minecraft:y_clamped_gradient",
+                "from_y": -128,
+                "to_y": -112,
+                "from_value": 0,
+                "to_value": 1
+              },
+              "argument2": {
+                "type": "minecraft:add",
+                "argument1": -0.1171875,
+                "argument2": {
+                  "type": "minecraft:add",
+                  "argument1": -0.078125,
+                  "argument2": {
+                    "type": "minecraft:mul",
+                    "argument1": {
+                      "type": "minecraft:y_clamped_gradient",
+                      "from_y": 352,
+                      "to_y": 368,
+                      "from_value": 1,
+                      "to_value": 0
+                    },
+                    "argument2": {
+                      "type": "minecraft:add",
+                      "argument1": 0.07,
+                      "argument2": "versel:overworld/sloped_cheese_modified"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "argument2": {
+    "type": "minecraft:interpolated",
+    "argument": "versel:overworld/caves/cave_noise"
+  }
+}

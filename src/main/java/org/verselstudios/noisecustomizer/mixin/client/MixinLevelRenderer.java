@@ -1,4 +1,4 @@
-package org.verselstudios.noisecustomizer.mixin;
+package org.verselstudios.noisecustomizer.mixin.client;
 
 import net.minecraft.client.renderer.LevelRenderer;
 import org.spongepowered.asm.mixin.Mixin;

@@ -1,4 +1,4 @@
-package org.verselstudios.noisecustomizer.mixin;
+package org.verselstudios.noisecustomizer.mixin.client;
 
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.world.level.entity.EntityAccess;

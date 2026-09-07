@@ -1,9 +1,15 @@
 package org.verselstudios.noisecustomizer.mixin;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.levelgen.*;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.verselstudios.noisecustomizer.Config;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -49,4 +55,20 @@ public class MixinNoiseBasedChunkGenerator {
                         + "§r"
         );
     }
+
+    @Inject(
+            method = "createFluidPicker",
+            at = @At("RETURN"),
+            cancellable = true
+    )
+    private static void createFluidPicker(NoiseGeneratorSettings settings, CallbackInfoReturnable<Aquifer.FluidPicker> cir) {
+        if (!Config.GENERATE_FLUIDS.get()) { // Add config for this later
+            Aquifer.FluidStatus aquifer$fluidstatus = new Aquifer.FluidStatus(-54, Blocks.AIR.defaultBlockState());
+            int i = settings.seaLevel();
+            Aquifer.FluidStatus aquifer$fluidstatus1 = new Aquifer.FluidStatus(i, Blocks.AIR.defaultBlockState());
+            Aquifer.FluidStatus aquifer$fluidstatus2 = new Aquifer.FluidStatus(DimensionType.MIN_Y * 2, Blocks.AIR.defaultBlockState());
+            cir.setReturnValue((p_224274_, p_224275_, p_224276_) -> p_224275_ < Math.min(-54, i) ? aquifer$fluidstatus : aquifer$fluidstatus1);
+        }
+    }
+
 }

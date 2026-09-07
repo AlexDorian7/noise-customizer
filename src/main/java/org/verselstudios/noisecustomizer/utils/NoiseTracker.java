@@ -311,6 +311,7 @@ public final class NoiseTracker {
     }
 
     public static void useNormalNoise(NormalNoise normal, double xScale, double yScale, double zScale, String usage) {
+        if (normal == null) return; // I did not think I would need to add this, but the Moderner Beta mod somehow crashed here.
         double xl = xScale * Config.NORMAL_NOISE_FIRST_INPUT_FACTOR.get();
         double yl = yScale * Config.NORMAL_NOISE_FIRST_INPUT_FACTOR.get();
         double zl = zScale * Config.NORMAL_NOISE_FIRST_INPUT_FACTOR.get();

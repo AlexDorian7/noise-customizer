@@ -18,14 +18,14 @@ import org.verselstudios.noisecustomizer.utils.NoiseTracker;
 @Mixin(PerlinNoise.class)
 public abstract class MixinPerlinNoise {
 
-    /**
-     * @author Versel
-     * @reason To allow for more customizations
-     */
-    @Overwrite
-    public static double wrap(double value) {
-        if (Config.ENABLE_FARLANDS.get()) return value;
-        return value - (double) Mth.lfloor(value / Config.WRAP_PERIOD.get() + 0.5) * Config.WRAP_PERIOD.get();
+    @Inject(method = "wrap", at = @At("RETURN"), cancellable = true)
+    private static void wrap(double value, CallbackInfoReturnable<Double> cir) {
+        if (Config.ENABLE_FARLANDS.get()) {
+            cir.setReturnValue(value);
+            return;
+        }
+        double v = value - (double) Mth.lfloor(value / Config.WRAP_PERIOD.get() + 0.5) * Config.WRAP_PERIOD.get();
+        cir.setReturnValue(v);
     }
 
 

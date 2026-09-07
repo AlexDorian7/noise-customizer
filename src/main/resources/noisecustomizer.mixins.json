@@ -3,16 +3,20 @@
   "package": "org.verselstudios.noisecustomizer.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "ChunkMapInvoker",
     "EntitySectionStorageMixin",
     "LevelMixin",
+    "MinixChunkPos",
     "MixinAquiferNoisedBasedAquifer",
     "MixinBlendedNoise",
     "MixinChunk",
     "MixinChunkGenerationTask",
     "MixinChunkMap",
+    "MixinDedicatedServerProperties",
     "MixinDimensionType",
     "MixinEntity",
     "MixinFriendlyByteBuf",
+    "MixinImprovedNoise",
     "MixinLevelReader",
     "MixinMinecraftServer",
     "MixinNoiseBasedChunkGenerator",
@@ -21,7 +25,6 @@
     "MixinNormalNoise",
     "MixinPerlinNoise",
     "MixinPlayerEntity",
-    "MixinServerChunkCache",
     "MixinServerGamePacketListenerImpl",
     "MixinServerLevel",
     "MixinWorldBorder",
@@ -38,8 +41,11 @@
     "requireAnnotations": false
   },
   "client": [
-    "MixinClientLevel",
-    "MixinDebugScreenOverlay",
-    "MixinLevelRenderer"
+    "client.KeyboardHandlerInvoker",
+    "client.MixinClientChunkCache",
+    "client.MixinClientLevel",
+    "client.MixinDebugScreenOverlay",
+    "client.MixinKeyboardHandler",
+    "client.MixinLevelRenderer"
   ]
 }

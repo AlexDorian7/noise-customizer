@@ -8,9 +8,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(MinecraftServer.class)
 public class MixinMinecraftServer {
-    @Inject(method = "getAbsoluteMaxWorldSize", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "getAbsoluteMaxWorldSize", at = @At("RETURN"), cancellable = true)
     public void getAbsoluteMaxWorldSize(CallbackInfoReturnable<Integer> cir) {
         cir.setReturnValue(Integer.MAX_VALUE);
-        cir.cancel();
     }
 }

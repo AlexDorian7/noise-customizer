@@ -12,15 +12,17 @@ import org.verselstudios.noisecustomizer.Config;
 public class MixinWorldgenRandom {
     @Inject(method = "setLargeFeatureSeed", at = @At("HEAD"))
     private void applyOffset(long worldSeed, int chunkX, int chunkZ, CallbackInfo ci) {
-        int offset = Config.GEN_OFFSET.get();
-        chunkX += offset;
-        chunkZ += offset;
+        int offsetX = Config.getChunkX(chunkX >> 4);
+        int offsetZ = Config.getChunkX(chunkZ >> 4);
+        chunkX += offsetX;
+        chunkZ += offsetZ;
     }
 
     @Inject(method = "setDecorationSeed", at = @At("HEAD"))
     private void applyOffset(long worldSeed, int blockX, int blockZ, CallbackInfoReturnable<Long> cir) {
-        int offset = Config.GEN_OFFSET.get() << 4;
-        blockX += offset;
-        blockZ += offset;
+        int offsetX = Config.getChunkX(blockX >> 4) << 4;
+        int offsetZ = Config.getChunkX(blockZ >> 4) << 4;
+        blockX += offsetX;
+        blockZ += offsetZ;
     }
 }

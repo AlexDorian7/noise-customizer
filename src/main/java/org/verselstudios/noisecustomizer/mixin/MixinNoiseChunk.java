@@ -13,7 +13,6 @@ public class MixinNoiseChunk {
     @Redirect(method = "forChunk", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/chunk/ChunkAccess;getPos()Lnet/minecraft/world/level/ChunkPos;"))
     private static ChunkPos applyOffset(ChunkAccess chunk) {
         ChunkPos chunkPos = chunk.getPos();
-        int offset = Config.GEN_OFFSET.get();
-        return new ChunkPos(chunkPos.x + offset, chunkPos.z + offset);
+        return new ChunkPos(Config.getChunkX(chunkPos.x), Config.getChunkZ(chunkPos.z));
     }
 }

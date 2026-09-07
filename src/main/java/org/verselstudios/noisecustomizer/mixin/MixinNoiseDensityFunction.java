@@ -9,6 +9,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.verselstudios.noisecustomizer.Config;
 import org.verselstudios.noisecustomizer.utils.NoiseTracker;
 
 @Mixin(DensityFunctions.Noise.class)
@@ -48,6 +49,15 @@ public class MixinNoiseDensityFunction {
                 zScale,
                 "density_function.noise.normal." + noisecustomizer$getNoiseName()
         );
+    }
+
+    @Inject(
+            method = "compute",
+            at = @At("RETURN"),
+            cancellable = true
+    )
+    public void compute(DensityFunction.FunctionContext context, CallbackInfoReturnable<Double> cir) {
+        cir.setReturnValue(this.noise.getValue((context.blockX() + Config.X_NOISE_OFFSET.get()) * this.xzScale, (context.blockY() + Config.Y_NOISE_OFFSET.get()) * this.yScale, (context.blockZ() + Config.Z_NOISE_OFFSET.get()) * this.xzScale));
     }
 
     @Unique

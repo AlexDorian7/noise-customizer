@@ -52,14 +52,14 @@ public abstract class MixinBlendedNoise {
     public double compute(DensityFunction.FunctionContext context) {
         if (Config.OLD_NOISE_TYPE.get().equals(GeneratorType.ONE)) return 1;
         if (Config.OLD_NOISE_TYPE.get().equals(GeneratorType.ZERO)) return 0;
-        double x = context.blockX() * Config.XZ_COORDINATE_SCALE.get();
-        double y = context.blockY() * Config.Y_COORDINATE_SCALE.get();
-        double z = context.blockZ() * Config.XZ_COORDINATE_SCALE.get();
+        double x = (context.blockX() + Config.X_NOISE_OFFSET.get()) * Config.XZ_COORDINATE_SCALE.get();
+        double y = (context.blockY() + Config.Y_NOISE_OFFSET.get()) * Config.Y_COORDINATE_SCALE.get();
+        double z = (context.blockZ() + Config.Z_NOISE_OFFSET.get()) * Config.XZ_COORDINATE_SCALE.get();
         if (Config.OLD_NOISE_TYPE.get().equals(GeneratorType.LUA)) {
             LuaState.getDefaultInstance().setNoiseFunction(this::noisecustomizer$computeOld);
             return LuaState.getDefaultInstance().blendedNoise(x, y, z);
         }
-        return noisecustomizer$computeOld(context.blockX(), context.blockY(), context.blockZ());
+        return noisecustomizer$computeOld(context.blockX() + Config.X_NOISE_OFFSET.get(), context.blockY() + Config.Y_NOISE_OFFSET.get(), context.blockZ() + Config.Z_NOISE_OFFSET.get());
     }
 
     @Unique

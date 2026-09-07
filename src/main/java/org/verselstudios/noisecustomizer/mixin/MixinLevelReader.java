@@ -29,22 +29,22 @@ public interface MixinLevelReader extends BlockAndTintGetter {
         return this.getRawBrightness(pos, amount);
     }
 
-    /**
-     * @author Versel
-     * @reason Debugging
-     */
-    @Overwrite
-    default Holder<Biome> getNoiseBiome(int x, int y, int z) {
-        try {
-            ChunkAccess chunkaccess = this.getChunk(QuartPos.toSection(x), QuartPos.toSection(z), ChunkStatus.BIOMES, false);
-            return chunkaccess != null ? chunkaccess.getNoiseBiome(x, y, z) : this.getUncachedNoiseBiome(x, y, z);
-        } catch (Throwable t) {
-            CrashReport crashReport = CrashReport.forThrowable(t, "Versel Debug Code");
-            CrashReportCategory category = crashReport.addCategory("VERSEL");
-            category.setDetail("Given chunk", String.format(Locale.ROOT, "%d, %d", x, z));
-            throw new ReportedException(crashReport);
-        }
-    }
+//    /**
+//     * @author Versel
+//     * @reason Debugging
+//     */
+//    @Overwrite
+//    default Holder<Biome> getNoiseBiome(int x, int y, int z) {
+//        try {
+//            ChunkAccess chunkaccess = this.getChunk(QuartPos.toSection(x), QuartPos.toSection(z), ChunkStatus.BIOMES, false);
+//            return chunkaccess != null ? chunkaccess.getNoiseBiome(x, y, z) : this.getUncachedNoiseBiome(x, y, z);
+//        } catch (Throwable t) {
+//            CrashReport crashReport = CrashReport.forThrowable(t, "Versel Debug Code");
+//            CrashReportCategory category = crashReport.addCategory("VERSEL");
+//            category.setDetail("Given chunk", String.format(Locale.ROOT, "%d, %d", x, z));
+//            throw new ReportedException(crashReport);
+//        }
+//    }
 
     @Shadow
     Holder<Biome> getUncachedNoiseBiome(int x, int y, int z);
