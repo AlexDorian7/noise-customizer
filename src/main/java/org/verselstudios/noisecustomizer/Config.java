@@ -2,13 +2,11 @@ package org.verselstudios.noisecustomizer;
 
 import net.neoforged.neoforge.common.ModConfigSpec;
 
-// An example config class. This is not required, but it's a good idea to have one to keep your config organized.
-// Demonstrates how to use Neo's config APIs
 public class Config {
     private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
 
     public static final ModConfigSpec.BooleanValue FIX_SECTIONS = BUILDER
-            .comment("Fix the section limit to allow entities and block interactions to work past 2^25")
+            .comment("Fix the section limit to allow entities, light, and block interactions to work past 2^25. Note changing this will break lighting in existing chunks.")
             .define("fixSections", false);
 
 
