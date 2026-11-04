@@ -24,7 +24,7 @@ public class MixinClientChunkCache {
     private LevelLightEngine replaceLightEngine(
             LightChunkGetter lightChunkGetter, boolean blockLight, boolean skyLight
     ) {
-        if (Config.FIX_SECTIONS.get()) { // Config.FIX_SECTIONS.get() // Disabled until light engine can be properly fixed
+        if (Config.FIX_SECTIONS.get()) {
             return new ExtendedLevelLightEngine(
                     lightChunkGetter,
                     blockLight,

@@ -31,7 +31,7 @@ public class MixinChunkMap {
             ProcessorMailbox<Runnable> mailbox,
             ProcessorHandle<ChunkTaskPriorityQueueSorter.Message<Runnable>> taskExecutor
     ) {
-        if (Config.FIX_SECTIONS.get()) { // Config.FIX_SECTIONS.get() // Disabled until light engine can be properly fixed
+        if (Config.FIX_SECTIONS.get()) {
             return new ExtendedThreadedLevelLightEngine(
                     lightChunk,
                     chunkMap,
