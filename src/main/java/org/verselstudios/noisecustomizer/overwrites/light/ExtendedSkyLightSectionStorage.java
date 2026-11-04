@@ -28,7 +28,7 @@ public class ExtendedSkyLightSectionStorage extends ExtendedLayerLightSectionSto
         ExtendedSkyDataLayerStorageMap storageMap = updateAll
                 ? this.updatingSectionData
                 : this.visibleSectionData;
-        int k = storageMap.topSections.get(sectionPos.getZeroNode());
+        int k = storageMap.topSections.getInt(sectionPos.getZeroNode());
         if (k != storageMap.currentLowestY && sy < k) {
             DataLayer datalayer = this.getDataLayer(storageMap, sectionPos);
             if (datalayer == null) {

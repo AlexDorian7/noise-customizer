@@ -9,11 +9,13 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
+import org.verselstudios.noisecustomizer.Config;
 import org.verselstudios.noisecustomizer.overwrites.light.ExtendedThreadedLevelLightEngine;
 
 @Mixin(ChunkMap.class)
 public class MixinChunkMap {
-    @Shadow @Final private ServerLevel level;
+    @Shadow @Final
+    ServerLevel level;
 
     @Redirect(
             method = "<init>",
@@ -29,7 +31,7 @@ public class MixinChunkMap {
             ProcessorMailbox<Runnable> mailbox,
             ProcessorHandle<ChunkTaskPriorityQueueSorter.Message<Runnable>> taskExecutor
     ) {
-        if (false) { // Config.FIX_SECTIONS.get() // Disabled until light engine can be properly fixed
+        if (Config.FIX_SECTIONS.get()) { // Config.FIX_SECTIONS.get() // Disabled until light engine can be properly fixed
             return new ExtendedThreadedLevelLightEngine(
                     lightChunk,
                     chunkMap,

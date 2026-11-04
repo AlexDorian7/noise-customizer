@@ -17,9 +17,9 @@ public class ExtendedLevelLightEngine extends LevelLightEngine implements LightE
     public static final int LIGHT_SECTION_PADDING = 1;
     protected final LevelHeightAccessor levelHeightAccessor;
     @Nullable
-    private final ExtendedLightEngine<?, ?> blockEngine;
+    final ExtendedLightEngine<?, ?> blockEngine;
     @Nullable
-    private final ExtendedLightEngine<?, ?> skyEngine;
+    final ExtendedLightEngine<?, ?> skyEngine;
 
     public ExtendedLevelLightEngine(LightChunkGetter lightChunkGetter, boolean blockLight, boolean skyLight) {
         super(lightChunkGetter, blockLight, skyLight);

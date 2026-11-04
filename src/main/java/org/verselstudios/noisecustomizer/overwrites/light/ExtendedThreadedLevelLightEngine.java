@@ -23,8 +23,11 @@ import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.chunk.DataLayer;
 import net.minecraft.world.level.chunk.LevelChunkSection;
 import net.minecraft.world.level.chunk.LightChunkGetter;
+import net.minecraft.world.level.lighting.LayerLightEventListener;
+import net.minecraft.world.level.lighting.LayerLightSectionStorage;
 import net.minecraft.world.level.lighting.LevelLightEngine;
 import org.slf4j.Logger;
+import org.verselstudios.noisecustomizer.utils.CoordinateKey;
 
 public class ExtendedThreadedLevelLightEngine extends ThreadedLevelLightEngine implements AutoCloseable {
     public static final int DEFAULT_BATCH_SIZE = 1000;
@@ -231,5 +234,77 @@ public class ExtendedThreadedLevelLightEngine extends ThreadedLevelLightEngine i
     static enum TaskType {
         PRE_UPDATE,
         POST_UPDATE;
+    }
+
+
+    @Override
+    public boolean hasLightWork() {
+        return this.engine.skyEngine != null && this.engine.skyEngine.hasLightWork() || this.engine.blockEngine != null && this.engine.blockEngine.hasLightWork();
+    }
+
+    @Override
+    public LayerLightEventListener getLayerListener(LightLayer type) {
+        if (type == LightLayer.BLOCK) {
+            return (this.engine.blockEngine == null ? LayerLightEventListener.DummyLightLayerEventListener.INSTANCE : this.engine.blockEngine);
+        } else {
+            return (this.engine.skyEngine == null ? LayerLightEventListener.DummyLightLayerEventListener.INSTANCE : this.engine.skyEngine);
+        }
+    }
+
+    @Override
+    public String getDebugData(LightLayer lightLayer, SectionPos sectionPos) {
+        CoordinateKey section = CoordinateKey.fromSection(sectionPos); // Yes I know that this still uses longs. since this is for debug data I do not care
+        if (lightLayer == LightLayer.BLOCK) {
+            if (this.engine.blockEngine != null) {
+                return this.engine.blockEngine.getDebugData(section);
+            }
+        } else if (this.engine.skyEngine != null) {
+            return this.engine.skyEngine.getDebugData(section);
+        }
+
+        return "n/a";
+    }
+
+    @Override
+    public LayerLightSectionStorage.SectionType getDebugSectionType(LightLayer lightLayer, SectionPos sectionPos) {
+        CoordinateKey section = CoordinateKey.fromSection(sectionPos); // Yes I know that this still uses longs. since this is for debug data I do not care
+
+        if (lightLayer == LightLayer.BLOCK) {
+            if (this.engine.blockEngine != null) {
+                return this.engine.blockEngine.getDebugSectionType(section).convert();
+            }
+        } else if (this.engine.skyEngine != null) {
+            return this.engine.skyEngine.getDebugSectionType(section).convert();
+        }
+
+        return LayerLightSectionStorage.SectionType.EMPTY;
+    }
+
+    @Override
+    public int getRawBrightness(BlockPos blockPos, int amount) {
+        int i = this.engine.skyEngine == null ? 0 : this.engine.skyEngine.getLightValue(blockPos) - amount;
+        int j = this.engine.blockEngine == null ? 0 : this.engine.blockEngine.getLightValue(blockPos);
+        return Math.max(j, i);
+    }
+
+    @Override
+    public boolean lightOnInSection(SectionPos sectionPos) {
+        CoordinateKey section = CoordinateKey.fromSection(sectionPos);
+        return this.engine.blockEngine == null || this.engine.blockEngine.storage.lightOnInSection(section) && (this.engine.skyEngine == null || this.engine.skyEngine.storage.lightOnInSection(section));
+    }
+
+    @Override
+    public int getLightSectionCount() {
+        return this.engine.levelHeightAccessor.getSectionsCount() + 2;
+    }
+
+    @Override
+    public int getMinLightSection() {
+        return this.engine.levelHeightAccessor.getMinSection() - 1;
+    }
+
+    @Override
+    public int getMaxLightSection() {
+        return this.getMinLightSection() + this.getLightSectionCount();
     }
 }
